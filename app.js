@@ -5,6 +5,7 @@ const method          = "GET";
 const sectionWork     = document.getElementById('sectionWork');
 const sectionWorkHelp = document.getElementById('sectionWorkHelp');
 const tableOfSections = document.getElementById("tableOfSections");
+const resultsDiv      = document.getElementsByClassName("results")[0];
 let selectedSection   = 0;
 const result          = document.getElementById("result");
 
@@ -28,6 +29,7 @@ sectionWork.onchange = function(e) {
 function handleAjax() {
 	if(request.status === 200 && request.readyState === 4) {
 		result.innerHTML = "";
+		resultsDiv.style.display = "block";
 		var output = "<ul>";
 		for (var i = 0; i < request.response.length; i++) {
 			output += "<li>" + request.response[i] + "</li>";
@@ -43,7 +45,7 @@ function handleAjaxMount() {
 		var tableOutput = "";
 		for (var i = 0; i < request.response.length; i++) {
 			output += "<option value='" + request.response[i]['name'] + "'>" + request.response[i]['header_text'] + "</option>";
-			
+
 			tableOutput += "<tr>";
 			tableOutput += "<td><b>" + request.response[i]['header_text'] + "</b></td>";
 			tableOutput += "<td><small class='badge badge-info'>" + request.response[i]['work_time'] + "</small></td>";
