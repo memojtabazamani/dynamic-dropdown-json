@@ -42,9 +42,10 @@ function handleAjaxMount() {
 		var output = "<option selected> Choose.. </option>";
 		var tableOutput = "";
 		for (var i = 0; i < request.response.length; i++) {
-			output += "<option value='" + request.response[i]['name'] + "'>" + request.response[i]['name'][0].toUpperCase() + request.response[i]['name'].slice(1).replace("_", " ") + "</option>";
+			output += "<option value='" + request.response[i]['name'] + "'>" + request.response[i]['header_text'] + "</option>";
+			
 			tableOutput += "<tr>";
-			tableOutput += "<td><b>" + request.response[i]['name'][0].toUpperCase() + request.response[i]['name'].slice(1).replace("_", " ") + "</b></td>";
+			tableOutput += "<td><b>" + request.response[i]['header_text'] + "</b></td>";
 			tableOutput += "<td><small class='badge badge-info'>" + request.response[i]['work_time'] + "</small></td>";
 			tableOutput += "<td><mark>" + request.response[i]['salary'] + "</mark></td>";
 			tableOutput += "</tr>";

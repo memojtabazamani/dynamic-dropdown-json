@@ -33,16 +33,19 @@ $skilsSectionWorks =
 $sectionWorks = [
 	[
 		"name" => "it",
+		"header_text" => "IT",
 		"work_time" => "08:00 - 16:00",
 		"salary"=> "99.9$ per month"
 	],
 	[
 		"name"=> "context_builder",
+		"header_text" => "Context Builder",
 		"work_time"=> "10:00 - 16:00",
 		"salary"=> "59.9$ per month"
 	],
 	[
 		"name"=> "graphic",
+		"header_text" => "Graphic",
 		"work_time"=> "07:00 - 12:00",
 		"salary"=> "79.9$ per month"
 	]
