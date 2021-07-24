@@ -8,6 +8,7 @@ const tableOfSections = document.getElementById("tableOfSections");
 const resultsDiv      = document.getElementsByClassName("results")[0];
 let selectedSection   = 0;
 const result          = document.getElementById("result");
+let skills            = [];
 
 sectionWork.onchange = function(e) {
 	if((sectionWork.selectedIndex) === 0) {
@@ -16,10 +17,7 @@ sectionWork.onchange = function(e) {
 	} else {
 		sectionWorkHelp.innerHTML = "";
 		selectedSection = sectionWork.value;
-		request.open(method, url + "?sumbitSkills=true&sectionWork="+selectedSection);
-		request.responseType = "json";
-		request.onreadystatechange = handleAjax;
-		request.send();
+		handleAjax();
 	}
 	
 }
@@ -27,16 +25,15 @@ sectionWork.onchange = function(e) {
 
 
 function handleAjax() {
-	if(request.status === 200 && request.readyState === 4) {
-		result.innerHTML = "";
-		resultsDiv.style.display = "block";
-		var output = "<ul>";
-		for (var i = 0; i < request.response.length; i++) {
-			output += "<li>" + request.response[i] + "</li>";
-		}
-		output += "</ul>";
-		result.innerHTML = output;
+	result.innerHTML = "";
+	resultsDiv.style.display = "block";
+	var selectedSkill = skills[selectedSection - 1].skills;
+	var output = "<ul>";
+	for (var i = 0; i < selectedSkill.length; i++) {
+		output += "<li>" + selectedSkill[i] + "</li>";
 	}
+	output += "</ul>";
+	result.innerHTML = output;
 }
 
 function handleAjaxMount() {
@@ -44,7 +41,7 @@ function handleAjaxMount() {
 		var output = "<option selected> Choose.. </option>";
 		var tableOutput = "";
 		for (var i = 0; i < request.response.length; i++) {
-			output += "<option value='" + request.response[i]['name'] + "'>" + request.response[i]['header_text'] + "</option>";
+			output += "<option value='" + request.response[i]['id'] + "'>" + request.response[i]['header_text'] + "</option>";
 
 			tableOutput += "<tr>";
 			tableOutput += "<td><b>" + request.response[i]['header_text'] + "</b></td>";
@@ -54,6 +51,7 @@ function handleAjaxMount() {
 		}
 		sectionWork.innerHTML = output;
 		tableOfSections.innerHTML = tableOutput;
+		skills = request.response;
 	}
 }
 
