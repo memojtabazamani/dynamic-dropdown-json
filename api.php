@@ -66,9 +66,6 @@ $sectionWorks = [
 	]
 ];
 
-// if(isset($_GET['sumbitSkills'])) {
-// 	echo json_encode($skilsSectionWorks[$_GET['sectionWork']] );
-// } 
 if(isset($_GET['sumbitSectionWorks'])) {
 	echo json_encode($sectionWorks);
 }

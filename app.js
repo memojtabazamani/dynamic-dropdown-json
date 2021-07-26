@@ -10,11 +10,15 @@ let selectedSection   = 0;
 const result          = document.getElementById("result");
 let skills            = [];
 
-sectionWork.onchange = function(e) {
+/**
+ * When change sectionwork
+ */
+ sectionWork.onchange = function(e) {
+	// Check are section selected?
 	if((sectionWork.selectedIndex) === 0) {
 		sectionWork.setCustomValidity("Must Be Selected Section Work!");
 		sectionWorkHelp.innerHTML = sectionWork.validationMessage;	
-	} else {
+	} else { // Selected
 		sectionWorkHelp.innerHTML = "";
 		selectedSection = sectionWork.value;
 		handleAjax();
@@ -23,29 +27,35 @@ sectionWork.onchange = function(e) {
 }
 
 
+/**
+ * Show Selected Section Details
+ */
+ function handleAjax() {
+ 	result.innerHTML = "";
+ 	resultsDiv.style.display = "block";
+ 	var selectedSkill = skills[selectedSection - 1].skills;
 
-function handleAjax() {
-	result.innerHTML = "";
-	resultsDiv.style.display = "block";
-	var selectedSkill = skills[selectedSection - 1].skills;
+ 	var output = "<ul>";
+ 	for (var i = 0; i < selectedSkill.length; i++) {
+ 		output += "<li>" + selectedSkill[i] + "</li>";
+ 	}
+ 	if(scoringSkills = skills[selectedSection - 1].scoring_skills) {
+ 		output += "<h5>Scoring Skills : </h5><ul>";
+ 		for (var i = 0; i < scoringSkills.length; i++) {
+ 			output += "<li>" + scoringSkills[i] + "</li>";
+ 		}
+ 	}
+ 	
+ 	output += "</ul>";
+ 	output += "</ul>";
+ 	result.innerHTML = output;
+ }
 
-	var output = "<ul>";
-	for (var i = 0; i < selectedSkill.length; i++) {
-		output += "<li>" + selectedSkill[i] + "</li>";
-	}
-	if(scoringSkills = skills[selectedSection - 1].scoring_skills) {
-		output += "<h5>Scoring Skills : </h5><ul>";
-		for (var i = 0; i < scoringSkills.length; i++) {
-			output += "<li>" + scoringSkills[i] + "</li>";
-		}
-	}
-	
-	output += "</ul>";
-	output += "</ul>";
-	result.innerHTML = output;
-}
-
-function handleAjaxMount() {
+/**
+ * In this function, we receive the basic information from one
+ */
+ function handleAjaxMount() {
+	// If all things okay?
 	if(request.status === 200 && request.readyState === 4) {
 		var output = "<option selected> Choose.. </option>";
 		var tableOutput = "";
@@ -61,7 +71,6 @@ function handleAjaxMount() {
 		sectionWork.innerHTML = output;
 		tableOfSections.innerHTML = tableOutput;
 		skills = request.response;
-		console.log(request.response);
 	}
 }
 
